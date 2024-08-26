@@ -1,47 +1,33 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 
-const App= ()=>{
-  const [numbers, setNumbers] =useState([1,2,3,4,5,6,7,8,9,10])
-  const [users, setUsers] = useState([]);
+const App = ()=>{
 
-  const mapData = ()=>{
-    let numberlessthan5 = numbers.map((filtered)=>filtered*filtered)
-    .filter((number)=>{
-      return number<=50;
-    })
-    setNumbers(numberlessthan5);
+  let name= React.createRef()
+  let age = React.createRef()
 
-    let filterData = users.filter((user)=>{
-      return user.id<5;
-    })
-    setUsers(filterData);
+
+  const getName = (event)=>{
+    console.log(event.target.value);
+  };
+
+  const getAge = (event)=>{
+    console.log(event.target.value);
   }
-
-  useEffect(()=>{
-    fetch(`https://jsonplaceholder.typicode.com/users`)
-    .then((response)=>response.json())
-    .then((json)=>setUsers(json))
-  }, []);
+  const submit = ()=>{
+    console.log(name.current.value);
+    console.log(age.current.value);
+  }
   return (
     <div>
-      <h1>Numbers</h1>
-      {numbers.map((num)=>(
-        <div>
-          {num}
-        </div>
-        
-      ))}
+      <input placeholder="Enter Name" ref={name} />
+      <input placeholder="Enter age" ref={age} />
 
-      <div>
-        <h1>Users</h1>
-        {users.map((user)=>(
-          <div>
-            <p>{user.id}</p>
-              <p>{user.username}</p>
-          </div>
-        ))}
-      </div>
-      <button onClick={mapData}>MapData</button>
+      <input placeholder='Enter name' onChange={getName} />
+      <input placeholder='Enter age' onChange={getAge} />
+
+
+      <button onClick={submit}>Submit</button>
+
     </div>
   )
 }
